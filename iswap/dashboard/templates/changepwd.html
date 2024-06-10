@@ -1,0 +1,62 @@
+{% extends "dash_base.html" %}
+{% block timeline %}
+ <div style="height: 80vh;">
+  <div class="container-fluid">
+    {% block formsection %}{% endblock formsection %}
+  </div>
+    <div class="card p-2 mt-2 px-4" style="max-width: 650px;
+       margin-left: auto; margin-right: auto;">
+      <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <h6 class="text-center border-bottom pb-2">Change Password</h6>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              {{form.current_pwd.label(class="text-muted")}}
+              {% if form.current_pwd.errors %}
+                {{form.current_pwd(class="form-control is-invalid", placeholder='********')}}
+                {% for error in form.current_pwd.errors %}
+                    <div class="invalid-feedback">{{error}}</div>
+                {% endfor %}
+              {% else %}
+                {{form.current_pwd(class="form-control-1", placeholder='********')}}
+              {% endif %} 
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              {{form.new_pwd.label(class="text-muted")}}
+              {% if form.new_pwd.errors %}
+                {{form.new_pwd(class="form-control is-invalid", placeholder='********')}}
+                {% for error in form.new_pwd.errors %}
+                    <div class="invalid-feedback">{{error}}</div>
+                {% endfor %}
+              {% else %}
+                {{form.new_pwd(class="form-control-1", placeholder='********')}}
+              {% endif %} 
+            </div>
+          </div>
+        </div>
+        <div class="mt-2">
+          <div class="form-group">
+            {{form.confirm_pwd.label(class="text-muted")}}
+            {% if form.confirm_pwd.errors %}
+              {{form.confirm_pwd(class="form-control is-invalid", placeholder='********')}}
+              {% for error in form.confirm_pwd.errors %}
+                  <div class="invalid-feedback">{{error}}</div>
+              {% endfor %}
+            {% else %}
+              {{form.confirm_pwd(class="form-control-1", placeholder='********')}}
+            {% endif %} 
+          </div>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button type="submit" class="btn-pink mt-2 small">
+            <i class="bi bi-send"></i> Save changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+ </div>
+{% endblock timeline %}

@@ -1,0 +1,41 @@
+{% extends "swapinfolayout.html" %}
+{% block formsection %}
+  <h5 class="form-header text-center mt-1 roboto-slab-6 border-bottom pb-2 text-lightred">
+    Update Target Info
+    <i class="bi bi-geo"></i>
+  </h5>
+  <small class="text-muted mb-2 text-center">
+    Please provide 3 options starting with your most preferred destination
+  </small> 
+  <div class="row shadow-custom-3  p-3">
+    <div class="col-md-6">
+      <div class="form-group">
+        {{form.counties.label(class="text-muted")}}
+        <select name="county" id="counties" class="form-select-1 cselect">
+          {% for county in counties %}
+            <option value="{{county['county']}}">{{county['county']}}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="sub-counties" class="text-muted">Sub County</label>
+        <select name="subcounty" id="sub-counties" class="form-select-1 cselect" required>
+        <!-- Sub counties-to be generated automatically -->
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="select-display"></div>
+  <div class="mx-2" id="hidden-1">
+    <button class="btn-pink mt-1" type="button" id="clearbtn"><i class="bi bi-trash"></i> Clear</button>
+    <button class="btn-pink mt-1 mx-2" type="button" id="savebtn"><i class="bi bi-send"></i> Save</button>
+  </div>
+  <div class="d-flex justify-content-end">
+    <button class="btn-pink mt-2" type="button" id="add-btn">
+      Add<i class="bi bi-plus"></i>
+    </button>
+  </div>
+  <script src="{{url_for('dashboard_bp.static', filename='js/targetloc.js')}}"></script>
+{% endblock formsection %}

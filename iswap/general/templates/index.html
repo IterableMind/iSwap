@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block navbar %}
+<li class="navbar-item mx-3 fw-bold">
+  <a href="{{url_for('auth_bp.login')}}"><i class="bi bi-box-arrow-in-right"></i> Sign in</a>
+</li>
+<li class="navbar-item  mx-3">
+  <a href="{{url_for('auth_bp.signup')}}"><i class="bi bi-person-add"></i> Sign up</a>
+</li>
+{% endblock navbar %}
+{% block main_content %}
+<!-- Search-Section --> 
+<div class="container" style="margin-top: 100px;">
+<h3 class="text-center fw-light text-deepblue mt-2">Find your swapmate here!</h3>
+  <form action="{{url_for('land_bp.index')}}", method="post" novalidate>
+    {{search_form.hidden_tag()}}
+    <div class="row g-1">
+      <div class="col-sm-11">
+        {% if search_form.search_input.errors %}
+        {{search_form.search_input(class="form-control rounded-pill is-invalid", 
+          placeholder="Type county or subcounty...")}}
+          {% for error in search_form.search_input.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+          {% endfor %}
+        {% else %}
+        {{search_form.search_input(class="form-control rounded-pill", 
+          placeholder="Type county or subcounty...")}}
+        {% endif %} 
+      </div>
+      <div class="col-sm-1 d-flex justify-content-end">
+        <button type="submit" class="btn-pink rounded-pill">
+          <i class="bi bi-search"></i> Search
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- Stats Section -->
+<div class="container">
+  <h6 class="mt-2 text-muted">Stats <i class="bi bi-graph-down"></i></h6>
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-3 g-2 card mx-2 p-3 shadow-2">
+      <h3 class="display-6 text-center fw-bold text-dimred" id="reg-teachers">{{displayinfo['total_teachers']}}</h3>
+      <p class="text-center fw-light"><i class="bi bi-people-fill fs-4"></i> Registered Teachers</p>
+    </div>
+    <div class="col-md-3 g-2 card mx-2 p-3 shadow-2">
+      <h3 class="display-6 text-center fw-bold text-dimred" id="matched-teachers">63</h3>
+      <p class="text-center fw-light"><i class="bi bi-hand-thumbs-up-fill fs-4"></i> Teachers Matched already</p>
+    </div>
+    <div class="col-md-3 g-2 card mx-2 p-3 shadow-2">
+      <h3 class="display-6 text-center fw-bold text-dimred" id="posts">738</h3>
+      <p class="text-center fw-light"><i class="bi bi-chat-fill fs-4"></i> Swap posts</p>
+    </div>
+  </div>
+</div>
+<!-- Intro-Section -->
+<div class="container-fluid mt-4 bg-light-2 p-3">
+  <div class="row g-2">
+    <div class="col-md-6 d-flex justify-content-center">
+     <img src="{{url_for('static', filename='images/app-images/kenyan-map.png')}}"
+      alt="Kenyan Map">
+    </div>
+    <div class="col-md-6">
+      <h4 class="fw-bold text-deepblue">Streamline your search for a swapmate</h4>
+      <p class="lh-lg">
+        iSwap is a pioneering platform that streamlines the process of finding a 
+        swapmate nationwide. By leveraging state-of-the-art algorithms, we MATCH 
+        teachers across Kenya looking for swapmates based on location, teaching subjects, 
+        teaching level, and personal preferences. Say goodbye to the complexity of finding a 
+        swapmate and hello to seamless transfers with iSwap.
+      </p>
+      <button class="btn btn-dark">Get started for free</button>
+    </div>
+  </div>
+</div>
+<!-- Steps -->
+<div class="container-fluid bg-white pt-2">
+  <div class="container">
+    <h5 class="fw-bold text-center mt-3 text-lightred">All it Takes is just 3 Steps</h5>
+    <hr class="mb-4">
+    <div class="row">
+      <div class="col-md-4 text-center">
+        <img src="{{url_for('static', filename='images/app-images/signup-logo.JPG')}}"
+          alt="Sign-up image" class="pb-4 mt-4"">
+        <h6 class="fw-bold text-lightred">1. Sign Up</h6>
+        <p class="text-start">
+          Let us get started, experience the full potential of our platform by signing up now!"
+        </p>
+      </div>
+      <div class="col-md-4 text-center">
+        <img src="{{url_for('static', filename='images/app-images/profile-logo.PNG')}}"
+          alt="Sign-up image" class="pb-5 mt-4"">
+          <h6 class="fw-bold text-lightred">2. Update Your Transfer details</h6>
+          <p class="text-start">
+            Update your details and where you want to go and leave the rest to us.
+          </p>
+      </div>
+      <div class="col-md-4 text-center">
+        <img src="{{url_for('static', filename='images/app-images/match-algorithm-pic.PNG')}}"
+          alt="Sign-up image" class="pb-5 mt-4">
+          <h6 class="fw-bold text-lightred">3. Matching Algorithm</h6>
+          <p class="text-start">
+            Get matched my a matching algorithm with accurate swapmate and get notified
+            via a text message on your phone as soon as a swapmate is available.
+          </p>
+      </div> 
+    </div>
+  </div>
+</div>
+<div class="container"><hr></div>
+<!-- Testimonies -->
+<div class="container">
+  <h6 class="text-center mt-4 display-6">What teachers are saying about us</h6>
+</div>
+<div class="container">
+  <div class="testmonies p-3">
+    <div class="pic-frame">
+      <img src="{{url_for('static', filename='images/app-images/profile-logo.png')}}" 
+          alt="Teacher-profile" class="img-fluid" style="border-radius: 50%;">
+    </div>
+    <h6 class="mt-3 fst-italic text-center">--{{displayinfo['fake_data'].username}}--</h6>
+    <p class="lead fs-5 mt-3">{{displayinfo['fake_data'].comment}}</p>
+  </div>
+</div>
+<script src="https://inorganik.github.io/countUp.js/dist/countUp.umd.js"></script>
+<script>
+   const reg_teachers = new countUp.CountUp("reg-teachers", Number(document.getElementById('reg-teachers').textContent), {duration: 10})  
+   reg_teachers.start()
+   const matched_teachers = new countUp.CountUp("matched-teachers", Number(document.getElementById('matched-teachers').textContent))  
+   matched_teachers.start()
+   const posts = new countUp.CountUp("posts", Number(document.getElementById('posts').textContent, {duration: 20}))  
+   posts.start()
+</script>
+{% endblock main_content %}

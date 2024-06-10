@@ -1,0 +1,80 @@
+{% extends "auth_base.html" %}
+{% block navbar %}
+<li class="navbar-item mx-3 fw-bold">
+  <a href="{{url_for('land_bp.index')}}"><i class="bi bi-house"></i> Home</a>
+</li>
+<li class="navbar-item  mx-3">
+  <a href="{{url_for('auth_bp.login')}}"><i class="bi bi-person-add"></i> Login</a>
+</li>
+{% endblock navbar %}
+{% block title %}
+  <h5 class="text-center fw-6">Welcome, create an account in a minute!</h5>
+{% endblock title%}
+{% block form_type %}Create Account {% endblock form_type %}
+{% block form %}
+<form action="{{url_for('auth_bp.signup')}}" method="post"> 
+  {{signup_form.hidden_tag()}}
+  <div class="form-group">
+    {{signup_form.username.label(class="text-muted")}}
+    {% if signup_form.username.errors %}
+      {{signup_form.username(class="form-control-1 is-invalid", placeholder='John Doe')}}
+      {% for error in signup_form.username.errors %}
+          <div class="invalid-feedback">{{error}}</div>
+      {% endfor %}
+    {% else %}
+      {{signup_form.username(class="form-control-1", placeholder='John Doe')}}
+    {% endif %}
+  </div>
+  <div class="form-group mt-2">
+    {{signup_form.email.label(class="text-muted")}}
+    {% if signup_form.email.errors %}
+      {{signup_form.email(class="form-control-1 is-invalid", placeholder='johndoe@gmail.com')}}
+      {% for error in signup_form.email.errors %}
+          <div class="invalid-feedback">{{ error }}</div>
+      {% endfor %}
+    {% else %}
+      {{signup_form.email(class="form-control-1", placeholder='johndoe@gmail.com')}}
+    {% endif %}
+</div>
+  <div class="form-group mt-2">
+    {{signup_form.password.label(class="text-muted")}}
+    {% if signup_form.password.errors %}
+      {{signup_form.password(class="form-control-1 is-invalid", placeholder='*****')}}
+      {% for error in signup_form.password.errors %}
+        <div class="invalid-feedback">{{ error }}</div>
+      {% endfor %}
+    {% else %}
+      {{signup_form.password(class="form-control-1", placeholder='*****')}}
+    {% endif %}
+  </div>
+  <div class="form-group mt-2">
+    {{signup_form.confirm_password.label(class="text-muted")}}
+    {% if signup_form.confirm_password.errors %}
+      {{signup_form.confirm_password(class="form-control-1 is-invalid", placeholder='*****')}}
+      {% for error in signup_form.confirm_password.errors %}
+        <div class="invalid-feedback">{{ error }}</div>
+      {% endfor %}
+    {% else %}
+      {{signup_form.confirm_password(class="form-control-1", placeholder='*****')}}
+    {% endif %}
+  </div>
+  <div class="form-group mt-2">
+    {{signup_form.phone.label(class="text-muted")}}
+    {% if signup_form.phone.errors %}
+      {{signup_form.phone(class="form-control-1 is-invalid", placeholder='*****')}}
+      {% for error in signup_form.phone.errors %}
+        <div class="invalid-feedback">{{ error }}</div>
+      {% endfor %}
+    {% else %}
+      {{signup_form.phone(class="form-control-1", placeholder='*****')}}
+    {% endif %}
+    <small class="form-text text-muted text-success">We will never share your phone number!</small>
+  </div>
+<div class="form-group mt-3">
+  <button type="submit" class="btn-pink w-100">REGISTER</button>
+</div>
+  <div class="form-group mt-2">
+    <small>Already have an account? <a href="{{url_for('auth_bp.login')}}">Login</a></small>
+  </div>
+</form>
+{% endblock form %}

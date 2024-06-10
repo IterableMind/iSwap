@@ -1,0 +1,185 @@
+{% extends "dash_base.html" %}
+{% block timeline %}
+<div class="mt-2 container">
+  {% if current_user.current_info %}
+  {% else %}
+   <div class="card alert-danger p-2 mb-2">
+     <small class="text-center">Please click 
+       <a href="{{url_for('dashboard_bp.swapinfo')}}">here</a> 
+        to update your information to get matched!
+     </small>
+   </div>
+  {% endif %}
+</div>
+<div class="mt-2 container">
+  {% if current_user.current_info.teaching_level == "Primary" %}
+    {% if match_score > 0 %}
+      <div class="card alert-success p-2 mb-2">
+        <h6 class="text-center">CONGRATULATION!!! YOU HAVE BEEN MATCHED SUCCESSFULLY!</h6>
+        <p class="text-center">
+          Click <a href="{{url_for('dashboard_bp.matched')}}">here</a> 
+          to view your match
+        </p>
+      </div>
+     {% endif %}
+  {% else %}
+    {% if match_score >= 4 %}
+    <div class="card alert-success p-2 mb-2">
+      <h6 class="text-center">CONGRATULATION!!! YOU HAVE BEEN MATCHED SUCCESSFULLY!</h6>
+      <p class="text-center">
+        Click <a href="{{url_for('dashboard_bp.matched')}}">here</a> 
+        to view your match
+      </p>
+    </div>
+    {% endif %}
+  {% endif %}
+</div>
+<div>
+  <div class="row px-3 justify-content-center g-2">
+    <div class="col-md-3 card pt-2 px-3 pb-3" style="font-size: 0.8rem; 
+      height: fit-content; border-radius: 7px;">
+      <div class="dp d-flex justify-content-center">
+        <img src="{{current_user.get_profile_pic_url()}}" 
+         alt="PP" class="circle-profile mt-1" width="150">
+      </div>
+      <h6 class="text-center">Welcome, {{current_user.username}}</h6>
+      <p class="text-center"><i class="bi bi-envelope-paper"></i> {{current_user.email}}</p> 
+      <h6 class="text-center pb-2"><i class="bi bi-telephone"></i> +254{{current_user.phone}}</h6> 
+      <div class="card p-2">
+        <div>
+          <label><i class="bi bi-house-fill"></i> School:</label>
+          <span class="text-muted">{{current_user.current_info.school_name}}</span>
+        </div>
+      </div>
+      <div class="card p-2 mt-1">
+        <div>
+          <label><i class="bi bi-map-fill"></i> County: </label>
+          <span class="text-muted">{{current_user.current_info.county}}</span>
+          <label>Sub-County: </label>
+          <span class="text-muted">{{current_user.current_info.subcounty}}</span>
+        </div>
+      </div>
+      <div class="card p-2 mt-1">
+        <div>
+          <label><i class="bi bi-award-fill"></i> Level:</label>
+          <span class="text-muted">
+            {{current_user.current_info.teaching_level}}
+          </span>
+        </div>
+      </div>  
+      {% if current_user.current_info.teaching_level == "Secondary" %}
+      <div class="card p-2 mt-1">
+        <label><i class="bi bi-book"></i> Teaching Subjects:</label>
+        <span><span class="fw-muted">Teaching Subs: </span> 
+          {{current_user.current_info.subject_comb|default('N/A')}}
+        </span>
+      </div>
+      {% endif %} 
+    </div>
+    <div class="col-md-8 mx-2 px-3 pb-3 bd-radius-1" style="height: 76vh;overflow-y: auto;">
+      <div class="post-div card pt-3 px-3 pb-2 bd-radius-1" style="border-radius: 10px;">
+        <h5 class="text-center fw-light border-bottom pb-2">Swap Feed</h5> 
+        <p class="text-center fw-light">
+          Let us build a community with meaningful transfer comments
+        </p>
+        <form action="">
+          <div class="d-flex">
+            <img src="{{current_user.get_profile_pic_url()}}" 
+             alt="Profile Picture" class="circle-profile" width="40">
+            <input type="text" class="form-control-1 rounded-pill mx-2" 
+             placeholder="What is on your mind {{current_user.username}}?">
+          </div>
+          <div class="justify-content-end d-flex">
+            <button class="btn-pink mt-2 rounded-pill small">
+              <i class="bi bi-send"></i> Post
+            </button>
+          </div>
+        </form>
+      </div>
+      <h6 class="text-center mt-2 fw-bold" style="color: #ffb3ba;">
+        Swaps you might be interested in
+      </h6>
+      {% for teacher in teacher_swaps %}
+        {% if teacher.username != current_user.username %}
+          <div class="card px-3 pb-3  pt-3 mt-2" style="font-size: 0.8rem; border-radius: 10px;">
+            <div class="row px-2"> 
+              <div class="col-sm-4 justify-content-center">
+                <img src="{{teacher.get_profile_pic_url()}}" class="circle-profile"
+                alt="Profile Picture" width="60">
+                <span class="h6 mx-2 fw-bold text-title">{{teacher.username}}</span>
+                <div>
+                <span><span class="fw-bold">Current School: </span> 
+                  {{teacher.current_info.school_name}} ({{teacher.current_info.school_gender}})
+                </span>
+                </div>
+                <div>
+                  {% if teacher.current_info.teaching_level == "Secondary" %}
+                    <span><span class="fw-bold">Teaching Subs: </span> 
+                      {{teacher.current_info.subject_comb|default('N/A')}}
+                    </span>
+                  {% endif %}
+                </div>
+                <hr>
+                <div>
+                  {% if teacher.target_info.updated_on %}
+                    <label class="text-muted small"><span>Posted 
+                    </span>{{moment(teacher.target_info.updated_on).fromNow()}}
+                    </label>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="col-sm-8 card">
+                <h6 class="text-center fw-light border-bottom pb-2 mt-2">
+                  <i class="bi bi-geo"></i> Location Details
+                </h6>
+                <div>
+                  <label><i class="bi bi-map-fill"></i> County:</label>
+                  <span class="text-muted">{{teacher.current_info.county}}</span>
+                  <label>Sub-County:</label>
+                  <span class="text-muted">{{teacher.current_info.subcounty}}</span>
+                </div>
+                <div>
+                  <label><i class="bi bi-layers-fill"></i> Category:</label>
+                  <span class="text-muted">{{teacher.current_info.school_category|default('N/A')}}</span>
+                  <label><i class="bi bi-universal-access-circle"></i> Type:</label>
+                  <span class="text-muted">{{teacher.current_info.school_type}}</span>
+                </div>
+                <hr>
+                <h6 class="text-center fw-light border-bottom pb-2">
+                <i class="bi bi-bullseye"></i> Swap to Options
+              </h6>
+              <ol class="bg-light p-2">
+                <li>
+                  <div class="bg-success-1 text-white p-2" style="border-radius: 4px;">
+                    <label>County 1:</label>
+                    <span>{{teacher.target_info.county1}}</span>
+                    <label>Sub-County 1:</label>
+                    <span>{{teacher.target_info.subcounty1}}</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="bg-warning-1 text-white p-2 mt-1" style="border-radius: 4px;">
+                    <label>County 2:</label>
+                    <span>{{teacher.target_info.county2}}</span>
+                    <label>Sub-County 1:</label>
+                    <span>{{teacher.target_info.subcounty2}}</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="bg-danger-1 text-white p-2 mt-1" style="border-radius: 4px;">
+                    <label>County 3:</label>
+                    <span class="">{{teacher.target_info.county3}}</span>
+                    <label>Sub-County 1:</label>
+                    <span class="">{{teacher.target_info.subcounty3}}</span>
+                  </div>
+                </li>
+              </ol>
+              </div>
+            </div> 
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock timeline %}

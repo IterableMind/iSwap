@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block main_content %}
+<div class="container align-items-center" style="margin-top: 100px;">
+  <div class="row">
+    {% block title %}{% endblock title%}
+    <div class="col-sm-6 d-flex justify-content-center mt-5">
+      <div style="max-height: fit-content;">
+        <img src="{{url_for('static', filename='images/app-images/kenyan-map.png')}}" 
+         alt="kenyan-map">
+      </div> 
+    </div>
+    <div class="col-sm-6">
+      <div class="px-4 pt-1 pb-3">
+        <h5 class="fw-bold text-center border-bottom pb-2">
+          {% block form_type %}{% endblock form_type %} <i class="bi bi-person-plus-fill"></i>
+        </h5>
+        {% with messages=get_flashed_messages(with_categories=True) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert p-0 alert-{{ category }} text-center">
+                  {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        <!-- Actual form -->
+        {% block form %}{% endblock form %}
+      </div>
+    </div>
+  </div>
+  <h6 class="text-center mt-5" style="font-weight: 200;">--- Created with <span class="text-lightred">
+   <i class="bi bi-heart-fill"></i></span> for teachers! ---
+  </h6>
+</div>
+{% endblock main_content %}

@@ -1,0 +1,122 @@
+header a {
+  color: #fff;
+  text-decoration: none;
+}
+.footer li {
+  list-style: none;
+}
+.footer a {
+  color: #fff;
+  text-decoration: none;
+}
+.bg-1 {
+  background: #ff1f2d9e;
+}
+.bg-2 {
+  background:  #e5a2a2;
+}
+.bg-light-2 {
+  background: #f1f1f1;
+}
+
+
+/* Text related styles */
+.text-xsm {
+  font-size: 0.69rem;
+}
+.text-deepred {
+  color: #8f0303;
+}
+.text-deepblue {
+  color:#1d4072;
+}
+.text-lightred {
+  color: #e5a2a2;
+  font-family: auto;
+}
+.text-dimred {
+  color: #a3a3a3;
+}
+.text-red {
+  color:#e98e96
+}
+.text-xsm {
+  font-size: 0.67rem;
+}
+.fw-6 {
+  font-weight: 300;
+}
+.fw-1 {
+  font-weight: 900;
+}
+.btn-pink {
+  color: #fff;
+  background:  #e5a2a2;
+  border:  #e5a2a2;
+  padding: 7px;
+  border-radius: 4px;
+  height: 38px;
+}
+
+/* shadows */
+
+.testmonies {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 430px;
+}
+
+.pic-frame {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background-color: #c4c6c7;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.login-form {
+  max-width: 300px;
+  max-height: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form-select-1 { 
+display: block;
+width: 100%;
+padding: .375rem 2.25rem .375rem .75rem;
+-moz-padding-start: calc(0.75rem - 3px);
+font-size: 0.86rem;
+font-weight: 400;
+line-height: 1.5;
+color: #212529;
+background-color: #fff; 
+background-repeat: no-repeat;
+background-position: right .75rem center;
+background-size: 16px 12px;
+border: 1px solid #dad7ce;
+border-radius: .25rem;
+transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+}
+
+.form-control-1 {
+  display: block;
+  width: 100%;
+  padding: .375rem .75rem;
+  font-size: 0.86rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: .25rem;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}

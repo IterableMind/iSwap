@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    {% if page_title %}
+      iSwap-{{page_title}}
+    {% else %}
+      iSwap
+    {% endif %}
+  </title>
+  <link rel="stylesheet" href="{{url_for('dashboard_bp.static', filename='dash.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='master.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='bootstrap/css/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='bootstrap/bootstrap-5-icons/icons-1.10.3/font/bootstrap-icons.css')}}"> 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+</head>
+<body style="background-color: #f4f2ee;">
+  <header>
+    <div class="container-fluid pt-1 pb-1 shadow-custom-2 mb-1 bg-white fixed-top">
+      <div class="container d-flex justify-content-between">
+        <div class="d-flex">
+          <img src="{{url_for('static', filename='images/logo/company-sm-logo.png')}}" 
+            alt="Company Logo" class="img-fluid">
+          <h5 class="fw-bold mt-3 mx-1 logo-title">i<span class="text-red">Swap</span></h5>
+        </div> 
+        <div class="search-form mx-2">
+          <form action="" class="d-flex mt-2">
+            <input type="text" class="form-control-1 rounded-pill" placeholder="Search">
+            <button class="btn btn-secondary mx-2 rounded-pill">
+              <i class="bi bi-search"></i>
+            </button>
+          </form> 
+        </div>
+        <div class="d-flex"> 
+          <a href="#" class="position-relative text-dark mx-3 mt-2">
+            <i class="bi bi-envelope fs-4 mx-1"></i> 
+            <span class="badge bg-danger rounded-pill position-absolute top-0 
+              start-100 translate-middle">
+              2 <!-- to be set dynamically with JavaScript -->
+            </span>
+          </a>
+          <a href="#" class="position-relative text-dark mx-3 mt-2">
+            <i class="bi bi-bell fs-4"></i>
+            <span class="badge bg-danger rounded-pill position-absolute top-0 
+              start-100 translate-middle">
+              8 <!-- to be set dynamically with JavaScript -->
+            </span>
+          </a>
+          <div class="mt-2  dropdown-toggle profileDropdown"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="{{current_user.get_profile_pic_url()}}" alt="" 
+              class="circle-profile" width="40">
+          </div>
+          <ul class="dropdown-menu bg-light" aria-labelledby="profileDropdown"
+           style="font-size: 0.82rem;">
+            <img src="{{current_user.get_profile_pic_url()}}" alt="" 
+              class="circle-profile mx-5" width="40">
+            <li class="text-center fw-bold">{{current_user.username}}</li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item" href="{{url_for('dashboard_bp.profile')}}">
+              <i class="bi bi-person"></i> Update Profile
+              </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item" href="{{url_for('dashboard_bp.updatepwd')}}">
+              <i class="bi bi-gear"></i> Change password
+              </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item fw-bold" href="{{url_for('auth_bp.logout')}}">
+              <i class="bi bi-arrow-left"></i> Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+  {% block main_content %}
+  <div class="container-fluid p-1">  
+    <div class="d-flex justify-content-center bg-dimred text-white p-2 navigation"
+     style="margin-top: 64px;">
+      <a href="{{url_for('dashboard_bp.timeline')}}" class="nav-label"><i class="bi bi-house-fill"></i> Home</a>
+      <a href="{{url_for('dashboard_bp.advsearch')}}" class="mx-2 nav-label"><i class="bi bi-search"></i> Advanced Search</a>
+      <a href="{{url_for('dashboard_bp.swapinfo')}}" class="nav-label"><i class="bi bi-info"></i> Transfer Info</a>
+    </div>
+    <div class="mt-1 container">
+     {% with messages=get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert p-0 alert-{{ category }} text-center">
+              <small>{{ message }}</small>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %} 
+    </div> 
+    {% block timeline %}
+    {% endblock timeline %}
+  </div>
+  {% endblock main_content %}
+  <!-- Footer-Section -->
+<div class="container-fluid footer bg-secondary mt-5 pt-5 text-white 
+  justify-content-center" style="height: 150px;">
+<div class="row">
+    <div class="col-md-4">
+      <ul class="d-flex justify-content-center">
+          <li><a href="#" class="small">Privacy Policy</a></li>
+          <li><a href="#" class="mx-2 small">Terms of Use</a></li>
+          <li><a href="#" class="small">Contact center</a></li>
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <h6 class="text-center small">
+        <span class="fw-bold">Copyright 2024 </span> iSwap. All Rights Reserved.
+      </h6> 
+    </div>
+    <div class="col-md-4">
+      <ul class="d-flex justify-content-center">
+        <li><a href="#"><i class="bi bi-facebook"></i></a></li>
+        <li><a href="#"><i class="bi bi-twitter mx-2"></i></a></li>
+        <li><a href="#"><i class="bi bi-whatsapp"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+{{ moment.include_moment() }}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // Add event listener for scrolling
+  window.addEventListener("scroll", function () {
+      // Remove flash message when user scrolls
+      var flashMessage = document.querySelector(".alert");
+      if (flashMessage) {
+          flashMessage.remove();
+      }
+  });
+});
+
+</script>
+<script src="{{url_for('static', filename='bootstrap/js/bootstrap.bundle.js')}}"></script>
+</body>
+</html>

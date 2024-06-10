@@ -1,0 +1,52 @@
+{% extends "auth_base.html" %}
+{% block navbar %}
+<li class="navbar-item mx-3 fw-bold">
+  <a href="{{url_for('land_bp.index')}}"><i class="bi bi-house"></i> Home</a>
+</li>
+<li class="navbar-item mx-3">
+  <a href="{{url_for('auth_bp.signup')}}"><i class="bi bi-person-add"></i> Sign up</a>
+</li>
+{% endblock navbar %}
+{% block title %}
+  <h5 class="text-center fw-6">Welcome Back, Login to continue!</h5>
+{% endblock title%}
+{% block form_type %}Login {% endblock form_type %}
+{% block form %}
+<form action="{{url_for('auth_bp.login')}}" method="post">
+  {{login_form.hidden_tag()}}
+  <div class="form-group mt-">
+    {{login_form.username.label(class="text-muted")}}
+    {% if login_form.errors %}
+      {{login_form.username(class="form-control-1 is-invalid", placeholder="Johndoe")}}
+        {% for error in login_form.username.errors %}
+          <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+    {% else %}
+      {{login_form.username(class="form-control-1", placeholder="Johndoe")}}
+    {% endif %}
+  </div>
+  <div class="form-group mt-2">
+    {{login_form.password.label(class="text-muted")}}
+    {% if login_form.password.errors %}
+      {{login_form.password(class="form-control-1 is-invalid", placeholder="******")}}
+        {% for error in login_form.password.errors %}
+          <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+    {% else %}
+      {{login_form.password(class="form-control-1", placeholder="******")}}
+    {% endif %}
+  </div>
+  <div class="mt-2">
+    <span>Remember Me {{ login_form.remember_me() }}</span>
+  </div>
+  <div class="form-group mt-2">
+    <small class="text-success">Forgot password? Click <a href="#">Here</a></small>
+  </div>
+  <div class="mt-2">
+    <button class="btn-pink w-100">LOGIN</button>
+  </div>
+  <div class="form-group mt-2">
+    <small>Don't have an account? <a href="{{url_for('auth_bp.signup')}}">Sign up</a></small>
+  </div>
+</form>
+{% endblock form %}

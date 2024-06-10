@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{url_for('static', filename='master.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='bootstrap/css/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='bootstrap/bootstrap-5-icons/icons-1.10.3/font/bootstrap-icons.css')}}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.0.8/countUp.min.js"></script> 
+  <title>
+    {% if page_title %}
+    {{ page_title }}-iSwap
+    {% else %}
+      iSwap
+    {% endif %}
+  </title>
+</head>
+<body class="bg-">
+  <header class="fixed-top">
+    <div class="container-fluid bg-2">
+        <div class="container">
+          <nav class="navbar navbar-expand-sm navbar-light">
+            <a href="#" class="navbar-brand">
+              <div class="d-flex">
+                <img src="{{url_for('static', filename='images/logo/company-sm-logo.png')}}"
+                  class="img-fluid"  alt="platform-logo">
+                  <div>
+                    <h4 class="mx-1 mb-0 mt-1 text-danger fw-1">
+                        i<span class="text-deepred">Swap</span>
+                    </h4>
+                    <small class="text-xsm text-white fw-bold">Revolutionazing swaps</small>
+                  </div>
+              </div>
+            </a>
+            <button 
+             class="navbar-toggler" 
+             type="button" 
+             data-bs-toggle="collapse" 
+             data-bs-target="#btn">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="btn">
+                <ul class="navbar-nav align-items-end ms-auto">
+                    {% block navbar %}{% endblock navbar %}
+                </ul>
+            </div>
+          </nav>
+        </div>
+    </div>
+</header>
+{% block main_content %}{% endblock main_content %}
+<!-- Footer-Section -->
+<div class="container-fluid footer bg-secondary mt-5 pt-5 text-white justify-content-center"
+  style="height: 150px;">
+  <div class="row">
+      <div class="col-md-4">
+        <ul class="d-flex justify-content-center">
+            <li><a href="#" class="small">Privacy Policy</a></li>
+            <li><a href="#" class="mx-2 small">Terms of Use</a></li>
+            <li><a href="#" class="small">Contact center</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h6 class="text-center small">
+            <span class="">Copyright 2024 </span> iSwap. All Rights Reserved.
+        </h6>
+      </div>
+      <div class="col-md-4">
+        <ul class="d-flex justify-content-center">
+            <li><a href="#"><i class="bi bi-facebook"></i></a></li>
+            <li><a href="#"><i class="bi bi-twitter mx-2"></i></a></li>
+            <li><a href="#"><i class="bi bi-whatsapp"></i></a></li>
+        </ul>
+      </div>
+    </div>
+</div> 
+<script src="{{url_for('static', filename='bootstrap/js/bootstrap.bundle.js')}}"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+{% extends "swapinfolayout.html" %}
+{% block welcometitle %}
+  Where are you based currently, {{current_user.username}}?
+{% endblock welcometitle %}
+{% block formsection %}
+<form action="{{url_for('dashboard_bp.swapinfo')}}" method="post">
+  <h5 class="text-center mt-2 border-bottom pb-2 text-lightred">
+    Please update your current details <i class="bi bi-pencil-square"></i>
+  </h5>
+  <h6 class="text-danger text-center">[All fields are mandatory!]</h6>
+  {{form.hidden_tag()}}
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        {{form.teaching_level.label(class="text-muted")}}
+        {% if form.teaching_level.errors %}
+          {% for error in form.teaching_level.erros %}
+            {{form.teaching_level(class="form-select-1 cselect is-invalid", id="teaching-level")}}
+            <div class="invalid-feedback">{{error}}</div>
+          {% endfor %}
+        {% else %}
+          {{form.teaching_level(class="form-select-1 cselect", id="teaching-level")}}
+        {% endif %}
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        {{form.school_name.label(class="text-muted")}}
+        {% if form.school_name.errors %}
+          {{form.school_name(class="form-control-1 is-invalid", placeholder='School Name')}}
+          {% for error in form.school_name.errors %}
+            <div class="invalid-feedback">{{error}}</div>
+          {% endfor %}
+        {% else %}
+          {{form.school_name(class="form-control-1", placeholder='School Name')}}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        {{form.counties.label(class="text-muted")}}
+        <select name="county" id="counties" class="form-select-1 cselect">
+          {% for county in counties %}
+            <option value="{{county['county']}}">{{county['county']}}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="sub-counties" class="text-muted">Sub County</label>
+        <select name="subcounty" id="sub-counties" class="form-select-1 cselect">
+        <!-- Sub counties-to be generated automatically -->
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        {{form.school_gender.label(class="text-muted")}}
+        {{form.school_gender(class="form-select-1 cselect", id="school-gender")}}
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        {{form.school_type.label(class="text-muted")}}
+        {{form.school_type(class="form-select-1 cselect")}}
+      </div>
+    </div>
+  </div>
+  <div class="row" id="submit-btn">
+    <div class="col-md-6"></div>
+    <div class="col-md-6 d-flex justify-content-end">
+      <button type="submit" class="btn-pink mt-2 small">
+        <i class="bi bi-send"></i> SAVE
+      </button>
+    </div>
+  </div>
+ </form>
+{% endblock formsection %}

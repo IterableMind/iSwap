@@ -1,0 +1,120 @@
+{% extends "dash_base.html" %}
+{% block timeline %}
+<marquee behavior="" direction="5">
+  <h6 class="text-danger">CONGRATULATION {{current_user.username.upper()}}! YOU HAVE BEEN MATCHED!</h6>
+</marquee>
+<div class="container">
+  <div class="row g-2 justify-content-center"> 
+    <div class="col-sm-5 card p-2 small text-muted px-4">
+      <h5 class="text-center fw-bold mt-2"><i class="bi bi-info"></i> Swapmate Info</h5>
+      <div class="dp d-flex justify-content-center">
+        <img src="{{swapmate.get_profile_pic_url()}}" 
+         alt="Profile Picture" class="circle-profile mt-1" width="150">
+      </div>
+      <h6 class="text-center">{{swapmate.username}}</h6>
+      <p class="text-center"><i class="bi bi-envelope-paper"></i> 
+        {{swapmate.email}}<br> +254{{swapmate.phone}}
+      </p>
+      <div class="card p-1 mt-1">
+        <p class=""><span class="fw-bold"><i class="bi bi-house-fill"></i> School: 
+         </span>{{swapmate.current_info.school_name}}
+        </p>
+      </div>
+      <div class="card p-1 mt-1">
+        <p class=""><span class="fw-bold"><i class="bi bi-person-fill"></i> School Gender
+         </span> {{swapmate.current_info.school_gender}}
+        </p>
+      </div>
+      <div class="card p-1 mt-1">
+        <p class=""><span class="fw-bold"><i class="bi bi-person-card-fill"></i> School Category
+         </span> {{swapmate.current_info.school_category}}
+        </p>
+      </div>
+      <div class="card p-1 mt-1">
+        <p class=""><span class="fw-bold"><i class="bi bi-book"></i> Teaching Teaching 
+         </span> {{swapmate.current_info.subject_comb}}
+        </p>
+      </div>
+      <div class="card p-1 mt-1">
+        <p class=""><span class="fw-bold"><i class="bi bi-map-fill"></i> County
+         </span> {{swapmate.current_info.county}}
+      </p>
+      </div>
+      <div class="card p-1 mt-1">
+        <p class=""><span class="fw-bold"><i class="bi bi-map-fill"></i> Subcounty: 
+         </span> {{swapmate.current_info.subcounty}}
+        </p>
+      </div>
+      <hr>
+      <h5>Preferred Locations</h5>
+      <div class="card p-1 mt-1">
+        <h6 class="">County 1: {{swapmate.target_info.county1}}</h6>
+        <p class="">Subcounty: {{swapmate.target_info.subcounty1}}</p>
+      </div>
+      <div class="card p-1 mt-1">
+        <h6 class="">County 2: {{swapmate.target_info.county2}}</h6>
+        <p class="">Subcounty: {{swapmate.target_info.subcounty2}}</p>
+      </div>
+      <div class="card p-1 mt-1">
+        <h6 class="">County 3: {{swapmate.target_info.county3}}</h6>
+        <p class="">Subcounty: {{swapmate.target_info.subcounty3}}</p>
+      </div>
+    </div>
+    <div class="col-sm-5 card p-2 small text-muted px-4 mx-3">
+      <h5 class="text-center fw-bold mt-2"><i class="bi bi-info"></i>Your Info</h5>
+      <div class="dp d-flex justify-content-center">
+        <img src="{{current_user.get_profile_pic_url()}}" 
+         alt="Profile Picture" class="circle-profile mt-1" width="150">
+      </div> 
+      <h6 class="text-center">{{current_user.username}}</h6>
+      <p class="text-center"><i class="bi bi-envelope-paper"></i> 
+        {{current_user.email}}<br> +254{{current_user.phone}}
+      </p>
+      <div class="card p-1 mt-1">
+        <p class=""><span class="fw-bold"><i class="bi bi-house-fill"></i> School: 
+         </span>{{current_user.current_info.school_name}}
+        </p>
+      </div>
+      <div class="card p-1 mt-1">
+        <p class=""><span class="fw-bold"><i class="bi bi-person-fill"></i> School Gender
+         </span> {{current_user.current_info.school_gender}}
+        </p>
+      </div>
+      <div class="card p-1 mt-1">
+        <p class=""><span class="fw-bold"><i class="bi bi-person-card-fill"></i> School Category
+         </span> {{current_user.current_info.school_category}}
+        </p>
+      </div>
+      <div class="card p-1 mt-1">
+        <p class=""><span class="fw-bold"><i class="bi bi-book"></i> Teaching Teaching 
+         </span> {{current_user.current_info.subject_comb}}
+        </p>
+      </div>
+      <div class="card p-1 mt-1">
+        <p class=""><span class="fw-bold"><i class="bi bi-map-fill"></i> County
+         </span> {{current_user.current_info.county}}
+      </p>
+      </div>
+      <div class="card p-1 mt-1">
+        <p class=""><span class="fw-bold"><i class="bi bi-map-fill"></i> Subcounty: 
+         </span> {{current_user.current_info.subcounty}}
+        </p>
+      </div>
+      <hr>
+      <h5>Preferred Locations</h5>
+      <div class="card p-1 mt-1">
+        <h6 class="">County 1: {{current_user.target_info.county1}}</h6>
+        <p class="">Subcounty: {{current_user.target_info.subcounty1}}</p>
+      </div>
+      <div class="card p-1 mt-1">
+        <h6 class="">County 2: {{current_user.target_info.county2}}</h6>
+        <p class="">Subcounty: {{current_user.target_info.subcounty2}}</p>
+      </div>
+      <div class="card p-1 mt-1">
+        <h6 class="">County 3: {{current_user.target_info.county3}}</h6>
+        <p class="">Subcounty: {{current_user.target_info.subcounty3}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock timeline %}

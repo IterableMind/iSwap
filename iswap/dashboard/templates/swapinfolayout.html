@@ -1,0 +1,15 @@
+{% extends "dash_base.html" %}
+{% block timeline %}
+<div style="height: 78vh;">
+  <div class="vport">
+    <h5 class="text-center fw-light">
+    {% block welcometitle %}{% endblock welcometitle %}
+  </h5>
+  <div class="form-group card mt-3 pt-2 pb-2 px-4">
+   {% block formsection %}{% endblock formsection %}
+  </div>
+</div>
+</div>
+<script src="{{url_for('dashboard_bp.static', filename='js/toggle.js')}}"></script>
+<script src="{{url_for('dashboard_bp.static', filename='js/fetchsubcounties.js')}}"></script>
+{% endblock timeline%}
