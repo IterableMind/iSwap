@@ -6,20 +6,13 @@ from iswap.models import Teacher, CurrentInfo, TargetLoc, db
 from flask_login import current_user
 from sqlalchemy.orm.exc import FlushError
 from iswap.utils import edit_picture
-from .matchalgo import calculate_score, find_potential_swapmates
-from .sendemail import Message, mail
+from .matchalgo import calculate_score, find_potential_swapmates 
 from iswap.staticdata import subject_comb, school_category, school_gender,\
                 school_type, countylist
-
-
 
 dashboard_bp = Blueprint('dashboard_bp',
                 __name__, static_folder='static',
                 template_folder='templates')
-
-
-
-
 
 
 def validate_select_fields(sub_data):
@@ -50,6 +43,7 @@ Landing page/feed for posted comments and swaps.
 @login_required
 def timeline(): 
   all_teachers = Teacher.query.all()
+  all_teachers.reverse()
   match_score, match_details = 0, None
   # Run a matching algorithm.
   match_result = find_potential_swapmates(current_user, all_teachers)
@@ -61,6 +55,7 @@ def timeline():
           match_score=match_score, 
           match_details = match_details
         )
+
 
 """
 Handle current teacher personal and location information.
@@ -126,6 +121,7 @@ def swapinfo():
       flash('An error occurred. Please try again later.', 'danger')
       return redirect(url_for('dashboard_bp.swapinfo')) 
   return render_template('currinfo.html', form=form, counties=counties)
+
 
 """
 Handle target location functionality.

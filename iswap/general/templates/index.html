@@ -10,7 +10,10 @@
 {% block main_content %}
 <!-- Search-Section --> 
 <div class="container" style="margin-top: 100px;">
-<h3 class="text-center fw-light text-deepblue mt-2">Find your swapmate here!</h3>
+<h5 class="text-center fw-light mb-3">
+  iSwap helps teachers looking for transfers to get matched with suitable swapmates effeciently.
+</h5>
+<!-- <h3 class="text-center fw-light text-deepblue mt-2">Find your swapmate here!</h3> -->
   <form action="{{url_for('land_bp.index')}}", method="post" novalidate>
     {{search_form.hidden_tag()}}
     <div class="row g-1">
