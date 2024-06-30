@@ -28,6 +28,6 @@ school_category = [
   'County', 
   'Sub County'
 ]
-school_type = ['Day', 'Boarding']
+school_type = ['Day', 'Boarding', 'Day/Boarding']
 school_gender = ['Mixed', 'Boys', 'Girls']
      

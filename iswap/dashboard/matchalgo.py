@@ -49,3 +49,4 @@ def find_potential_swapmates(requesting_teacher, all_teachers):
     
     potential_swapmates.sort(key=lambda x: x['score'], reverse=True)
     return potential_swapmates
+ 

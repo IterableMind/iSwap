@@ -22,6 +22,7 @@ class Teacher(UserMixin, db.Model):
   current_info = db.relationship('CurrentInfo', backref='teacher', uselist=False)
   target_info = db.relationship('TargetLoc', backref='targetloc', uselist=False)
   profile_pic = db.Column(db.String(200))
+  matched_status = db.Column(db.Boolean, default=False)
   
   def set_password(self, password):
     self.pw_hash = generate_password_hash(password)
@@ -36,8 +37,6 @@ class Teacher(UserMixin, db.Model):
       return os.path.join(app.root_path, 'static', 'images', 'profile_pictures', self.profile_pic)
     else:
         # Return a default image path if no profile picture is set
-        # return os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', \
-        #  '..', 'instances', 'default_profile_pic.jpg')
         return os.path.join(app.root_path, 'static', 'images', 'profile_pictures', 'default_profile.pic.png')
 
   def get_profile_pic_url(self):
@@ -77,3 +76,4 @@ class TargetLoc(db.Model):
   subcounty3 = db.Column(db.String(64), nullable=False)
   teacher_id = db.Column(db.Integer, db.ForeignKey('teachers.id'), unique=True, nullable=False)
   updated_on = db.Column(db.DateTime, default=datetime.utcnow)
+

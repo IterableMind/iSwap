@@ -14,9 +14,14 @@ teaching_level = ['Primary', 'Secondary']
 class CurrentInfoForm(FlaskForm):
     school_name = StringField('School Name', validators=
                 [DataRequired(message='You must provide your current school name!')]) 
-    teaching_level = SelectField('Teaching Level', 
-                choices=[('', 'Teaching Level', {'disabled': True}), 
-                ('Primary', 'Primary'), ('Secondary', 'Secondary')])
+    teaching_level = SelectField(
+        'Teaching Level', 
+        choices=[
+            ('', 'Teaching Level'),
+            ('Primary', 'Primary'), 
+            ('Secondary', 'Secondary')
+        ]
+    )
     
     counties = SelectField('County', choices=countylist)
     school_category = SelectField('School Category', choices=school_category)

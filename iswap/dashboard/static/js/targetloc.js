@@ -75,10 +75,6 @@ document.getElementById('savebtn').addEventListener('click', () => {
     },
     body: JSON.stringify(selectedPlaces)
   })
-  // .then(response => response.json())
-  // .then(data => {
-  //   console.log('Success', data);
-  // })
   .catch((error) => {
     console.log('Error', error);
   });

@@ -7,6 +7,10 @@
   <link rel="stylesheet" href="{{url_for('static', filename='bootstrap/css/bootstrap.min.css')}}">
   <link rel="stylesheet" href="{{url_for('static', filename='bootstrap/bootstrap-5-icons/icons-1.10.3/font/bootstrap-icons.css')}}">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.0.8/countUp.min.js"></script> 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Spicy+Rice&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
   <title>
     {% if page_title %}
     {{ page_title }}-iSwap
@@ -25,10 +29,9 @@
                 <img src="{{url_for('static', filename='images/logo/company-sm-logo.png')}}"
                   class="img-fluid"  alt="platform-logo">
                   <div>
-                    <h4 class="mx-1 mb-0 mt-1 text-danger fw-1">
-                        i<span class="text-deepred">Swap</span>
-                    </h4>
-                    <small class="text-xsm text-white fw-bold">Revolutionazing swaps</small>
+                    <h4 class="mx-1 mb-0 mt-3 archivo-black-regular" style="color: #ac101e; font-weight: 900;">
+                        i<span>Swap</span>
+                    </h4> 
                   </div>
               </div>
             </a>
@@ -40,9 +43,9 @@
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="btn">
-                <ul class="navbar-nav align-items-end ms-auto">
-                    {% block navbar %}{% endblock navbar %}
-                </ul>
+              <ul class="navbar-nav align-items-end ms-auto">
+                  {% block navbar %}{% endblock navbar %}
+              </ul>
             </div>
           </nav>
         </div>
@@ -50,8 +53,8 @@
 </header>
 {% block main_content %}{% endblock main_content %}
 <!-- Footer-Section -->
-<div class="container-fluid footer bg-secondary mt-5 pt-5 text-white justify-content-center"
-  style="height: 150px;">
+<div class="container-fluid footer bg-secondary pt-5 text-white justify-content-center"
+  style="height: 180px;">
   <div class="row">
       <div class="col-md-4">
         <ul class="d-flex justify-content-center">
@@ -72,6 +75,7 @@
             <li><a href="#"><i class="bi bi-whatsapp"></i></a></li>
         </ul>
       </div>
+     <span class="text-center"> Call/Whatsapp/Sms: <span class="fw-bold"> 0701948782</span></span>
     </div>
 </div> 
 <script src="{{url_for('static', filename='bootstrap/js/bootstrap.bundle.js')}}"></script>

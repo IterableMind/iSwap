@@ -49,6 +49,7 @@
         <div>
           <label><i class="bi bi-house-fill"></i> School:</label>
           <span class="text-muted">{{current_user.current_info.school_name}}</span>
+          
         </div>
       </div>
       <div class="card p-2 mt-1">
@@ -64,15 +65,16 @@
           <label><i class="bi bi-award-fill"></i> Level:</label>
           <span class="text-muted">
             {{current_user.current_info.teaching_level}}
+             ({{current_user.current_info.school_category|default('')}})
           </span>
         </div>
       </div>  
       {% if current_user.current_info.teaching_level == "Secondary" %}
       <div class="card p-2 mt-1">
         <label><i class="bi bi-book"></i> Teaching Subjects:</label>
-        <span><span class="fw-muted">Teaching Subs: </span> 
+        <!-- <span><span class="fw-muted">Teaching Subs: </span>  -->
           {{current_user.current_info.subject_comb|default('N/A')}}
-        </span>
+        <!-- </span> -->
       </div>
       {% endif %} 
     </div>
@@ -96,17 +98,18 @@
           </div>
         </form>
       </div>
-      <h6 class="text-center mt-2 fw-bold" style="color: #ffb3ba;">
+      <h6 class="text-center mt-2 fw-bold source-sans-3">
         Swaps you might be interested in
       </h6>
       {% for teacher in teacher_swaps %}
-        {% if teacher.username != current_user.username %}
+        {% if teacher.username != current_user.username and 
+          teacher.current_info != None and teacher.target_info != None%}
           <div class="card px-3 pb-3  pt-3 mt-2" style="font-size: 0.8rem; border-radius: 10px;">
-            <div class="row px-2"> 
+            <div class="row px-2">
               <div class="col-sm-4 justify-content-center">
                 <img src="{{teacher.get_profile_pic_url()}}" class="circle-profile"
                 alt="Profile Picture" width="60">
-                <span class="h6 mx-2 fw-bold text-title">{{teacher.username}}</span>
+                <span class="h6 mx-2 fw-bold text-title">{{teacher.username}} ({{teacher.current_info.teaching_level}})</span>
                 <div>
                 <span><span class="fw-bold">Current School: </span> 
                   {{teacher.current_info.school_name}} ({{teacher.current_info.school_gender}})
@@ -139,9 +142,9 @@
                   <span class="text-muted">{{teacher.current_info.subcounty}}</span>
                 </div>
                 <div>
-                  <label><i class="bi bi-layers-fill"></i> Category:</label>
+                  <label><i class="bi bi-layers-fill"></i> Sch. Category:</label>
                   <span class="text-muted">{{teacher.current_info.school_category|default('N/A')}}</span>
-                  <label><i class="bi bi-universal-access-circle"></i> Type:</label>
+                  <label><i class="bi bi-universal-access-circle"></i> Sch. Type:</label>
                   <span class="text-muted">{{teacher.current_info.school_type}}</span>
                 </div>
                 <hr>
@@ -151,25 +154,25 @@
               <ol class="bg-light p-2">
                 <li>
                   <div class="bg-success-1 text-white p-2" style="border-radius: 4px;">
-                    <label>County 1:</label>
+                    <label>County:</label>
                     <span>{{teacher.target_info.county1}}</span>
-                    <label>Sub-County 1:</label>
+                    <label>Sub-County:</label>
                     <span>{{teacher.target_info.subcounty1}}</span>
                   </div>
                 </li>
                 <li>
                   <div class="bg-warning-1 text-white p-2 mt-1" style="border-radius: 4px;">
-                    <label>County 2:</label>
+                    <label>County:</label>
                     <span>{{teacher.target_info.county2}}</span>
-                    <label>Sub-County 1:</label>
+                    <label>Sub-County:</label>
                     <span>{{teacher.target_info.subcounty2}}</span>
                   </div>
                 </li>
                 <li>
                   <div class="bg-danger-1 text-white p-2 mt-1" style="border-radius: 4px;">
-                    <label>County 3:</label>
+                    <label>County:</label>
                     <span class="">{{teacher.target_info.county3}}</span>
-                    <label>Sub-County 1:</label>
+                    <label>Sub-County:</label>
                     <span class="">{{teacher.target_info.subcounty3}}</span>
                   </div>
                 </li>

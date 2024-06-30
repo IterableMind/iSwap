@@ -17,6 +17,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
 </head>
 <body style="background-color: #f4f2ee;">
   <header>
@@ -36,19 +39,19 @@
           </form> 
         </div>
         <div class="d-flex"> 
-          <a href="#" class="position-relative text-dark mx-3 mt-2">
+          <a href="#" class="position-relative text-dark mx-2 mt-2">
             <i class="bi bi-envelope fs-4 mx-1"></i> 
             <span class="badge bg-danger rounded-pill position-absolute top-0 
               start-100 translate-middle">
-              2 <!-- to be set dynamically with JavaScript -->
-            </span>
+               1
+            </span> 
           </a>
-          <a href="#" class="position-relative text-dark mx-3 mt-2">
+          <a href="#" class="position-relative text-dark mx-2 mt-2">
             <i class="bi bi-bell fs-4"></i>
-            <span class="badge bg-danger rounded-pill position-absolute top-0 
-              start-100 translate-middle">
-              8 <!-- to be set dynamically with JavaScript -->
-            </span>
+            <!-- <span class="badge bg-danger rounded-pill position-absolute top-0 
+              start-100 translate-middle"> -->
+              <!-- to be set dynamically with JavaScript -->
+            <!-- </span> -->
           </a>
           <div class="mt-2  dropdown-toggle profileDropdown"
             data-bs-toggle="dropdown" aria-expanded="false">
@@ -106,7 +109,7 @@
   {% endblock main_content %}
   <!-- Footer-Section -->
 <div class="container-fluid footer bg-secondary mt-5 pt-5 text-white 
-  justify-content-center" style="height: 150px;">
+  justify-content-center" style="height: 180px;">
 <div class="row">
     <div class="col-md-4">
       <ul class="d-flex justify-content-center">
@@ -127,6 +130,7 @@
         <li><a href="#"><i class="bi bi-whatsapp"></i></a></li>
       </ul>
     </div>
+    <span class="text-center"> Call/Whatsapp/Sms: <span class="fw-bold"> 0701948782</span></span>
   </div>
 </div>
 {{ moment.include_moment() }}

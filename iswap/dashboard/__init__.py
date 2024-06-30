@@ -1,40 +1,18 @@
-from flask import Blueprint, url_for, render_template, redirect, request, flash, g
-from flask_login import login_required 
+from flask import Blueprint, url_for, render_template, redirect, request, flash, jsonify
+from flask_login import login_required, current_user 
 from .swapinfoform import CurrentInfoForm, ProfileUpdateForm, UpdatePassword
 from iswap.staticdata import counties
-from iswap.models import Teacher, CurrentInfo, TargetLoc, db
-from flask_login import current_user
+from iswap.models import Teacher, CurrentInfo, db 
 from sqlalchemy.orm.exc import FlushError
 from iswap.utils import edit_picture
-from .matchalgo import calculate_score, find_potential_swapmates 
-from iswap.staticdata import subject_comb, school_category, school_gender,\
-                school_type, countylist
+from .matchalgo import find_potential_swapmates 
+from .sendsms import send_sms
+from .dashutils import validate_select_fields, insertlocinfo
 
 dashboard_bp = Blueprint('dashboard_bp',
-                __name__, static_folder='static',
+                __name__, 
+                static_folder='static',
                 template_folder='templates')
-
-
-def validate_select_fields(sub_data):
-  if sub_data.get('sub_comb') is not None and \
-    sub_data['sub_comb'] not in subject_comb:
-    return False
-  if sub_data.get('sch_category') is not None and \
-    sub_data['sch_category'] not in school_category:
-    return False
-  if sub_data.get('tchin_level') is not None and \
-    sub_data['tchin_level'] not in ('Primary', 'Secondary'):
-    return False
-  if sub_data['county'] not in countylist:
-    return False
-  if sub_data.get('sch_gender') is not None and \
-    sub_data['sch_gender'] not in school_gender:
-    return False 
-  if sub_data.get('sch_type') is not None and \
-    sub_data['sch_type'] not in school_type:
-    return False
-  return True
-
 
 """
 Landing page/feed for posted comments and swaps.
@@ -49,6 +27,17 @@ def timeline():
   match_result = find_potential_swapmates(current_user, all_teachers)
   if len(match_result):  
     match_details, match_score = match_result[0].values() 
+    # Send notification to the matched teachers.
+    teaching_level = current_user.current_info.teaching_level
+    if (teaching_level == 'Primary' and match_score > 0) or \
+       (teaching_level == 'Secondary' and match_score >= 4):
+      send_sms(current_user)
+      # Update matched status
+      try:
+        current_user.matched_status = True
+        db.session.commit()
+      except:
+        pass 
   return render_template(
           'home.html', 
           teacher_swaps=all_teachers,
@@ -91,7 +80,7 @@ def swapinfo():
     if not validate_select_fields(curr_details):
       flash('One of the values of your field is not valid!', 'danger')
       return redirect(url_for('dashboard_bp.swapinfo'))
-    # send current teacher info to the data the database.
+     
     teacher_current_details = CurrentInfo(
       teaching_level = curr_details['tchin_level'],
       school_name = curr_details['sch_name'],
@@ -144,41 +133,13 @@ def advsearch():
   return render_template('advsearch.html')
 
 """
-Trying to figure out what this route does.????
+Insert target data into the database.
 """
 @dashboard_bp.route('/submitted', methods=['GET', 'POST'])
 @login_required
-def submitted():
-  targetinfo = request.json
-  _insertlocinfo(targetinfo) 
+def submitted(): 
+  insertlocinfo(request.json) 
   return redirect(url_for('dashboard_bp.timeline'))
-
-"""
-Insert target location into the database.
-"""
-def _insertlocinfo(data):
-  # insert target location details to the database.
-  loc = TargetLoc(
-    county1=data[0], 
-    subcounty1=data[1],
-    county2=data[2], 
-    subcounty2=data[3],
-    county3=data[4], 
-    subcounty3=data[5],
-    teacher_id = current_user.id
-    ) 
-  try:
-    usertarinfo = TargetLoc.query.filter_by(
-                    teacher_id=current_user.id).first()
-    if usertarinfo:
-      db.session.delete(usertarinfo)
-      db.session.commit()
-    db.session.add(loc)
-    db.session.commit()
-  except FlushError as e:
-      db.session.rollback()
-  except Exception as e:
-      db.session.rollback()
 
 """
 Update phone, username and profile picture.
@@ -251,4 +212,6 @@ API to fetch all counties and their subcounties.
 @dashboard_bp.route('/fetchsubcounties')
 @login_required
 def fetchsubcounties(): 
-  return counties 
+  return jsonify(counties) 
+
+
