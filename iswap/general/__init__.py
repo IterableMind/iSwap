@@ -21,6 +21,26 @@ def index():
   search_form = SearchForm()
   if search_form.validate_on_submit():
     # Search for posted destination
-    pass
-  return render_template('index.html', page_title='Home', search_form=
-          search_form, displayinfo=displayinfo, feedbackform = FeedbackForm())
+   search_value = search_form.search_input.data
+   all_dest = []
+   for teacher in Teacher.query.all():
+     teacher_info = teacher.target_info
+     if teacher_info:
+      all_dest.append(teacher_info.county1)
+      all_dest.append(teacher_info.county2)
+      all_dest.append(teacher_info.county3)
+      all_dest.append(teacher_info.subcounty1)
+      all_dest.append(teacher_info.subcounty2)
+      all_dest.append(teacher_info.subcounty3)
+      destn_upper = [val.upper() for val in all_dest]
+   return render_template('searchresult.html', 
+                          search_value=search_value,
+                          total_result = len(destn_upper),
+                          percentage = round((destn_upper.count(search_value) * len(all_dest)) % 100, 2),
+                          searchresult=destn_upper.count(search_value.upper()))
+  return render_template('landingpg.html',
+                          page_title='Home', 
+                          search_form=search_form, 
+                          displayinfo=displayinfo, 
+                          feedbackform = FeedbackForm()
+                          )

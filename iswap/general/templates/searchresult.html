@@ -1,0 +1,74 @@
+{% extends "index.html" %}
+{% block main_content %}
+<!-- Search-Section --> 
+<div class="container" style="margin-top: 100px;">
+<div class="container p-2">
+  <h4 class="text-center" style="font-weight: bolder; color:#a3a3a3;">
+    Revolutionazing swaps! <span class="text-danger">100% FREE!</span>
+  </h4>
+</div>
+<h5 class="text-center fw-light mb-3 c-statement">
+  iSwap helps teachers looking for transfers to get matched with suitable swapmates effeciently.
+</h5>
+<div class="container bg-light p-4"> 
+  <h4 class="text-center fw-light border-bottom pb-2">
+    Search Result for Swaps involving <span id="search-value">{{search_value}}</span>
+  </h4>
+  <h3 class="text-center"><span id="searchresult">{{searchresult}}</span>
+    <small style="font-size: small; background-color: red; color: white; padding: 5px">
+      {{percentage}}%</small>
+  </h3>
+  <h5 class="text-center">Total Swap Destinations: <span id="total_result">{{total_result}}</span></h5>
+  <div style="max-width: 400px; margin-left: auto; margin-right: auto;">
+    <canvas id="myChart"></canvas>
+  </div>
+</div>
+<div class="row">
+  <h4 class="text-center fw-light mt-2">Take action to view more details about available swaps</h4>
+  <div class="col-sm mb-4">
+    <h6 class="text-center">You don't have an account yet?</h6>
+    <a href="{{url_for('auth_bp.signup')}}"><button class="btn-pink w-100">SIGN UP FOR FREE</button></a>
+  </div>
+  <div class="col-sm mb-4">
+    <h6 class="text-center">Login instead</h6>
+    <a href="{{url_for('auth_bp.login')}}"><button class="btn-pink w-100">LOGIN</button></a>
+  </div>
+</div> 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+ document.addEventListener('DOMContentLoaded', function () {
+    // Fetch values from Flask template
+    var searchresult = parseInt(document.getElementById('searchresult').textContent);
+    var total_result = parseInt(document.getElementById('total_result').textContent);
+    var search_value = document.getElementById('search-value').textContent;
+    // Initialize Chart.js with dynamic data
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['No of posts in '+String(search_value), 'All posts'],
+        datasets: [{
+          label: 'Values',
+          data: [searchresult, total_result],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  });
+</script>
+{% endblock main_content %}
