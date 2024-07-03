@@ -33,10 +33,11 @@ def index():
       all_dest.append(teacher_info.subcounty2)
       all_dest.append(teacher_info.subcounty3)
       destn_upper = [val.upper() for val in all_dest]
+      
    return render_template('searchresult.html', 
                           search_value=search_value,
                           total_result = len(destn_upper),
-                          percentage = round((destn_upper.count(search_value) * len(all_dest)) % 100, 2),
+                          percentage = round((all_dest.count(search_value) * len(destn_upper)) % 100, 2),
                           searchresult=destn_upper.count(search_value.upper()))
   return render_template('landingpg.html',
                           page_title='Home', 
